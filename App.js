@@ -1,17 +1,18 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
+
+const title = (<h1 className="head"> I am Sarath</h1>);
 
 
-const para = React.createElement("div", { id: "parent" }, [
-    React.createElement("div", {id: "child1"}, [
-        React.createElement("h1",{},"H1"),
-        React.createElement("h2",{},"H2"),
-    ]),
-    React.createElement("div", {id: "child2"}, [
-        React.createElement("h1",{},"H1"),
-        React.createElement("h2",{},"H2"),
-    ])
-]);
+//React Function component
+//React FC should start with capital letter
+const Headingcomponent = ()=> (
+    <div>
+        {title}
+        <h1> This is functional component</h1>
+    </div>
+);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(para);
+root.render(<Headingcomponent />);
