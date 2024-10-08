@@ -1,26 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-const RestaurantCard = (props)=>{
-    const {resData} = props;
-    console.log(resData);
-    const {
-        name,
-        avgRating,
-        cuisines,
-        costForTwo,
-        deliveryTime,} = resData?.data;
-    return (
-        <div className="res-card" style={{backgroundColor: "#f0f0f0"}}>
-            <img className="res-logo" src="https://www.licious.in/blog/wp-content/uploads/2022/06/chicken-hyderabadi-biryani-01.jpg" alt="res-logo" />
-            <h3>{name}</h3>
-            <h4>{avgRating} stars</h4>
-            <h4>{cuisines.join(",")}</h4>
-            <h4>{costForTwo/100} for two</h4>
-            <h4>{deliveryTime} minutes</h4>
-        </div>
-    )
-}
 const resList = [
     {
       type: "restaurant",
@@ -1906,47 +1883,4 @@ const resList = [
     },
 ];
 
-const Body = ()=>{
-    return(
-        <div className="body">
-            <div className="search">Search</div>
-            <div className="res-container">
-                {resList.map((restaurant)=>(
-                    <RestaurantCard key = {restaurant.data.id} resData = {restaurant}/>
-                ))}
-            </div>
-        </div>
-    )
-}
-
-const Header = ()=>{
-    return (
-        <div className="header">
-            <div className="logo-container">
-                <img className="logo"src="https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"></img>
-            </div>
-            <div className="nav-items">
-                <ul>
-                    <li>Home</li>
-                    <li>About us</li>
-                    <li>Contact us</li>
-                    <li>Cart</li>
-                </ul>
-            </div>
-        </div>
-    )
-};
-
-const Applayout = ()=>{
-    return (
-        <div className="layout">
-           <Header/>
-           <Body/>
-        </div>
-    )
-};
-
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(<Applayout />);
+export default resList;
