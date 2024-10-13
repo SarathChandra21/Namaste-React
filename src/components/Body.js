@@ -3,6 +3,7 @@ import RestaurantCard from "./RestaurantCard";
 import { useState } from "react";
 import { useEffect} from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
     // Correct casing for state variable
@@ -60,7 +61,11 @@ const Body = () => {
             </button>
             <div className="res-container">
                 {filteredRestaurants.map((restaurant) => (
-                    <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+                    // <RestaurantCard  resData={restaurant} />
+                    <Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id}>
+                        <RestaurantCard  resData={restaurant} />
+                    </Link>
+                    
                 ))}
             </div>
         </div>
