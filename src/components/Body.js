@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
     // Correct casing for state variable
@@ -12,6 +13,9 @@ const Body = () => {
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
     const [searchText, setSearchText] = useState("");
+
+    const onlineStatus = useOnlineStatus();
+
 
     useEffect(() => {
       fetchData();
@@ -27,6 +31,8 @@ const Body = () => {
         setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         setFilteredRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     }
+
+    if(onlineStatus === false) return <h1>Oops, you are offline! Please check your internet connection!</h1>
 
     return listOfRestaurants.length === 0? <Shimmer/>: (
         <div className="body">
