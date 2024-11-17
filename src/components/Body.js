@@ -1,20 +1,24 @@
 import resList from "../utils/mockData";
-import RestaurantCard from "./RestaurantCard";
-import { useState } from "react";
+import RestaurantCard, {Withopenlabel} from "./RestaurantCard";
+import { useContext, useState } from "react";
 import { useEffect} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext.js";
 
 const Body = () => {
     // Correct casing for state variable
     const [listOfRestaurants, setListOfRestaurants] = useState([]);
-
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-
     const [searchText, setSearchText] = useState("");
 
+    const RestaurantOpened = Withopenlabel(RestaurantCard);
+
+
     const onlineStatus = useOnlineStatus();
+
+    console.log(listOfRestaurants);
 
 
     useEffect(() => {
@@ -33,6 +37,8 @@ const Body = () => {
     }
 
     if(onlineStatus === false) return <h1>Oops, you are offline! Please check your internet connection!</h1>
+
+    const {loggedInUser, setUserName} = useContext(UserContext);
 
     return listOfRestaurants.length === 0? <Shimmer/>: (
         <div className="body">
@@ -70,7 +76,10 @@ const Body = () => {
                         Top restaurants
                     </button>
                 </div>
-                
+                <div className="top flex items-center m-4 p-4">
+                    <label>UserName: </label>
+                    <input type="text" className="border border-black p-2" value={loggedInUser} onChange={(e)=>setUserName(e.target.value)} />
+                </div>
             </div>
             
             
@@ -78,7 +87,10 @@ const Body = () => {
                 {filteredRestaurants.map((restaurant) => (
                     // <RestaurantCard  resData={restaurant} />
                     <Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id}>
-                        <RestaurantCard  resData={restaurant} />
+                        {
+                            restaurant.info.isOpen? <RestaurantOpened  resData={restaurant} /> : <Restaurant  resData={restaurant} />
+                        }
+                        
                     </Link>
                     
                 ))}
